@@ -61,7 +61,7 @@ Run the container:
 docker run --rm -p 8501:8501 --env-file .env exo-phc-devops:local
 ```
 
-Use the `.env` file described above (created from `.sample_env`) so required variables such as `HEALTH_RECORD_FILE`, `HEALTH_WORKOUT_FILE` and `OPENAI_API_KEY` are available at runtime.
+Use the repository root `.sample_env` file (copy it as `.env`, as described in the Usage section above) so required variables such as `HEALTH_RECORD_FILE`, `HEALTH_WORKOUT_FILE` and `OPENAI_API_KEY` are available at runtime.
 
 The `Dockerfile` uses a multi-stage build to install dependencies in a builder stage and run the app in a lightweight runtime stage.
 
