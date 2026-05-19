@@ -9,8 +9,8 @@ WORKDIR /app
 RUN python -m venv /opt/venv
 ENV PATH="/opt/venv/bin:$PATH"
 
-COPY src/requirements.txt ./src/requirements.txt
-RUN pip install --upgrade pip && pip install -r src/requirements.txt
+COPY src/requirements.txt ./requirements.txt
+RUN pip install --upgrade pip && pip install -r requirements.txt
 
 FROM python:3.11-slim AS runner
 

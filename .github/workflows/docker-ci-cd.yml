@@ -31,7 +31,7 @@ jobs:
         run: docker build -t exo-phc-devops:ci .
 
       - name: Smoke test Docker image
-        run: docker run --rm exo-phc-devops:ci streamlit --version
+        run: docker run --rm --entrypoint streamlit exo-phc-devops:ci --version
 
   publish:
     if: github.event_name == 'push' && github.ref == 'refs/heads/main'
