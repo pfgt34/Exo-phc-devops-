@@ -23,7 +23,6 @@ WORKDIR /app
 COPY --from=builder /opt/venv /opt/venv
 COPY src ./src
 COPY data ./data
-COPY .sample_env ./.sample_env
 
 EXPOSE 8501
 
