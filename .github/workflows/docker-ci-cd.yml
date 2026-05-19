@@ -34,9 +34,13 @@ jobs:
         run: docker run --rm --entrypoint streamlit exo-phc-devops:ci --version
 
       - name: Smoke test app startup
-        run: >
-          docker run --rm --entrypoint sh exo-phc-devops:ci -c
-          "timeout 8 streamlit run src/Home.py --server.headless true --server.address 0.0.0.0 --server.port 8501 >/tmp/streamlit.log 2>&1 || test \$? -eq 124; grep -q 'URL:' /tmp/streamlit.log"
+        run: |
+          docker run --rm --entrypoint sh exo-phc-devops:ci -c '
+            # timeout returns 124 when the app keeps running after the limit.
+            timeout 8 streamlit run src/Home.py --server.headless true --server.address 0.0.0.0 --server.port 8501 >/tmp/streamlit.log 2>&1 || test $? -eq 124
+            # Ensure startup logs were produced.
+            grep -q "URL:" /tmp/streamlit.log
+          '
 
   publish:
     if: github.event_name == 'push' && github.ref == 'refs/heads/main'
