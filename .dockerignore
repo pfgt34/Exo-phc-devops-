@@ -1,0 +1,7 @@
+.git
+.github
+.venv
+__pycache__
+*.pyc
+# Keep local secrets out of the image build context; pass .env at runtime.
+.env

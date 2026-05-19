@@ -47,6 +47,32 @@ Run the command `.venv/bin/streamlit run src/Home.py` to start the application, 
   Local URL: http://localhost:8501
 ```
 
+## Docker
+
+Build the image:
+
+```
+docker build -t exo-phc-devops:local .
+```
+
+Run the container:
+
+```
+docker run --rm -p 8501:8501 --env-file .env exo-phc-devops:local
+```
+
+Use the repository root `.sample_env` file and copy it as `.env` (as described in the Usage section above).
+Ensure required variables such as `HEALTH_RECORD_FILE`, `HEALTH_WORKOUT_FILE` and `OPENAI_API_KEY` are set for runtime.
+
+The `Dockerfile` uses a multi-stage build to install dependencies in a builder stage and run the app in a lightweight runtime stage.
+
+## CI/CD
+
+GitHub Actions workflow is available at `.github/workflows/docker-ci-cd.yml`.
+
+- On pull requests: install dependencies, validate Python sources, and build the Docker image.
+- On pushes to `main`: repeat validation then publish `${DOCKERHUB_USERNAME}/exo-phc-devops:latest` to Docker Hub using `DOCKERHUB_USERNAME` and `DOCKERHUB_TOKEN` secrets.
+
 ## Demo
 
 ![demo](./data/demo.gif)
